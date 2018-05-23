@@ -61,13 +61,6 @@ before_install:
  - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
  - echo 'count=0' > /home/travis/.android/repositories.cfg
 
-before_script:
-  - android list targets
-  - echo no | android create avd --force --name test --target android-22 --abi $ANDROID_ABI
-  - emulator -avd test -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
-
 script:
   - ./gradlew build connectedAndroidTest --stacktrace
 
