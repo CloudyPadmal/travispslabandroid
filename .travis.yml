@@ -24,10 +24,9 @@ install:
 
 script:
   - ./gradlew build --stacktrace
-  - ./gradlew testDebugUnitTestCoverage
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - bash scripts/prep-key.sh
-  - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then bash upload-apk.sh; fi'
+  - bash upload-apk.sh
 
