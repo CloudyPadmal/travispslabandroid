@@ -25,14 +25,14 @@ import mehdi.sakout.aboutpage.AboutPage;
 public class AboutUs extends AppCompatActivity {
 
     @BindView(R.id.toolbar1)
-    Toolbar toolbar1;
+    Toolbar toolbarasd1;
     @BindView(R.id.appBarAnim)
     AppBarLayout appBarLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        simulateDayNight(0);
+        simulateDayNasdight(0);
         setContentView(R.layout.about_toolbar);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar1);

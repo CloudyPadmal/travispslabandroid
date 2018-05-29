@@ -20,7 +20,7 @@ cache:
   - "$HOME/.gradle/wrapper/"
 
 install:
-    - echo yes | ${ANDROID_HOME}/tools/bin/sdkmanager "platforms;android-27"
+    - echo yes | ${ANDROID_HOME}/tools/bin/sdkmanager "platforms;android-"$ANDROID_API_LEVEL
 
 script:
   - ./gradlew build --stacktrace
@@ -28,5 +28,5 @@ script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - bash scripts/prep-key.sh
-  - bash upload-apk.sh
+  - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then bash upload-apk.sh; fi'
 
