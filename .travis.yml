@@ -20,7 +20,7 @@ cache:
   - "$HOME/.gradle/wrapper/"
 
 install:
-    - echo yes | ${ANDROID_HOME}/tools/bin/sdkmanager "platforms;android-"$ANDROID_API_LEVEL
+    - echo yes | ${ANDROID_HOME}/tools/bin/sdkmanager "platforms;android-${ANDROID_API_LEVEL}"
 
 script:
   - ./gradlew build --stacktrace
