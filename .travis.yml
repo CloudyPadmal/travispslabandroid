@@ -1,13 +1,15 @@
 language: android
 
+sudo: false
+
 jdk: oraclejdk8
 
 android:
   components:
     - tools
     - platform-tools
-    - build-tools-$ANDROID_BUILD_TOOLS_VERSION
     - android-27
+    - build-tools-27.0.3
    
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
