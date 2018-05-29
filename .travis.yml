@@ -7,7 +7,7 @@ android:
     - tools
     - platform-tools
     - build-tools-$ANDROID_BUILD_TOOLS_VERSION
-    - android-$ANDROID_API_LEVEL
+    - android-27
    
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -20,7 +20,7 @@ cache:
   - "$HOME/.gradle/wrapper/"
 
 install:
-    - echo yes | ${ANDROID_HOME}/tools/bin/sdkmanager "platforms;android-${ANDROID_API_LEVEL}"
+    - echo yes | ${ANDROID_HOME}/tools/bin/sdkmanager "platforms;android-27"
 
 script:
   - ./gradlew build --stacktrace
