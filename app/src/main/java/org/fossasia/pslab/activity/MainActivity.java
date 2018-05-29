@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static int navItemIndex = 0;
 
-    private static final String TAG_HOMasdE = "home";
+    private static final String TAG_HOME = "home";
 
     private static final String TAG_APPLICATIONS = "applications";
     private static final String TAG_SAVED_EXPERIMENTS = "savedExperiments";
