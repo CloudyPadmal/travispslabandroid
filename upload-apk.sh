@@ -18,8 +18,13 @@ cd apk
 \cp -r ../README.md .
 
 # Signing Apps
-
+echo "Travis Branch"
 echo $TRAVIS_BRANCH
+echo "Git branches"
+git branch -vv
+echo "Git remotes"
+git remove -v
+echo "-------------------"
 
 if [ "$TRAVIS_BRANCH" == "$PUBLISH_BRANCH" ]; then
     echo "Push to master branch detected, signing the app..."
