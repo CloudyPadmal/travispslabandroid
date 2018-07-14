@@ -2,6 +2,7 @@
 set -e
 
 export PUBLISH_BRANCH=${PUBLISH_BRANCH:-master}
+export DEVELOPMENT_BRANCH=${DEVELOPMENT_BRANCH:-development}
 
 #setup git
 git config --global user.email "noreply@travis.com"
@@ -18,12 +19,15 @@ cd apk
 \cp -r ../README.md .
 
 # Signing Apps
+echo "------------------"
+echo $PUBLISH_BRANCH
+echo $DEVELOPMENT_BRANCH
 echo "Travis Branch"
 echo $TRAVIS_BRANCH
 echo "Git branches"
 git branch -vv
 echo "Git remotes"
-git remove -v
+git remote -v
 echo "-------------------"
 
 if [ "$TRAVIS_BRANCH" == "$PUBLISH_BRANCH" ]; then
