@@ -30,5 +30,7 @@ script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - bash scripts/prep-key.sh
+  - echo ${TRAVIS_PULL_REQUEST}
+  - echo $TRAVIS_PULL_REQUEST
   - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then bash upload-apk.sh; fi'
 
