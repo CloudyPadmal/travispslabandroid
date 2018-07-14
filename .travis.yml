@@ -22,7 +22,10 @@ cache:
   - "$HOME/.gradle/wrapper/"
 
 install:
-    - echo yes | ${ANDROID_HOME}/tools/bin/sdkmanager "platforms;android-27"
+  - echo yes | ${ANDROID_HOME}/tools/bin/sdkmanager "platforms;android-27"
+
+script:
+  - ./gradlew build --stacktrace
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
