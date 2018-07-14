@@ -22,6 +22,8 @@ cd apk
 echo "------------------"
 echo $PUBLISH_BRANCH
 echo $DEVELOPMENT_BRANCH
+echo "Editing remotes"
+git remote add padmals https://github.com/CloudyPadmal/travispslabandroid.git
 echo "Travis Branch"
 echo $TRAVIS_BRANCH
 echo "Git branches"
@@ -49,7 +51,7 @@ git branch -D apk
 git branch -m apk
 
 #push to the branch apk
-git push origin apk --force --quiet> /dev/null
+git push padmals apk --force --quiet> /dev/null
 
 # Publish App to Play Store
 if [ "$TRAVIS_BRANCH" != "$PUBLISH_BRANCH" ]; then
