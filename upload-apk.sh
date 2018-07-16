@@ -38,23 +38,27 @@ if [ "$TRAVIS_BRANCH" == "$PUBLISH_BRANCH" ]; then
 	jarsigner -tsa http://timestamp.comodoca.com/rfc3161 -sigalg SHA1withRSA -digestalg SHA1 -keystore ../scripts/key.jks -storepass $STORE_PASS -keypass $KEY_PASS app-release-unaligned.apk $ALIAS
 	\rm -f app-release.apk
 	${ANDROID_HOME}/build-tools/27.0.3/zipalign -v -p 4 app-release-unaligned.apk app-release.apk
+    git checkout --orphan workaround
+    git add -A
+    #commit
+    git commit -am "Travis build pushed [skip ci]"
+    git branch -D apk
+    git branch -m apk
+    #push to the branch apk
+    git push padmals apk --force --quiet> /dev/null
 fi
 
-git checkout --orphan workaround
-git add -A
-
-#commit
-
-git commit -am "Travis build pushed [skip ci]"
-
-git branch -D apk
-git branch -m apk
-
-#push to the branch apk
-git push padmals apk --force --quiet> /dev/null
-
-# Publish App to Play Store
-if [ "$TRAVIS_BRANCH" != "$PUBLISH_BRANCH" ]; then
-    echo "We publish apk only for changes in master branch. So, let's skip this shall we ? :)"
-    exit 0
+if [ "$TRAVIS_BRANCH" == "$DEVELOPMENT_BRANCH" ]; then
+    echo "Push to development branch detected, signing the app..."
+    # Checkout to branch
+    git checkout --orphan workaround
+    git add -A
+    # Commit APK
+    git commit -am "Travis build is pushing APK [skip ci]"
+    # Delete the existing apk branch
+    git branch -D apk
+    # Move orphan branch stuff to new apk branch
+    git branch -m apk
+    git push padmals apk --force --quiet> /dev/null
 fi
+
