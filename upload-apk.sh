@@ -2,7 +2,7 @@
 set -e
 
 export PUBLISH_BRANCH=${PUBLISH_BRANCH:-master}
-export DEVELOPMENT_BRANCH=${DEVELOPMENT_BRANCH:-development}
+export DEVELOPMENT_BRANCH=${DEVELOPMENT_BRANCH:-bb2}
 
 #setup git
 git config --global user.email "noreply@travis.com"
