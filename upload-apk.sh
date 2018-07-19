@@ -10,37 +10,21 @@ git config --global user.name "Travis CI"
 
 #clone the repository into a folder named apk
 git clone --quiet --branch=apk https://CloudyPadmal:$GITHUB_API_KEY@github.com/fossasia/pslab-android apk > /dev/null
-echo "------------------ What is outside current folder"
-ls -la ../
-echo "------------------ CD into APK folder where clone stuff are there from apk branch"
+
 cd apk
-echo "------------------ Inside apk folder"
-ls -la
-cat debug-output.json
-echo "---"
-cat debug_output.json
-echo "------------------ Copying content from app build"
+#retain the master branch apk
+\cp app-release.apk app-release-master.apk
 \cp -r ../app/build/outputs/apk/*/**.apk .
 \cp -r ../app/build/outputs/apk/debug/output.json debug-output.json
 \cp -r ../app/build/outputs/apk/release/output.json release-output.json
 \cp -r ../README.md .
 echo "Inside apk folder after copying"
 ls -la
-cat debug-output.json
-echo "---"
-cat debug_output.json
 echo "------------------"
 
 # Signing Apps
 echo "------------------"
-echo $PUBLISH_BRANCH
-echo $DEVELOPMENT_BRANCH
-echo "Editing remotes"
 git remote add padmals https://github.com/CloudyPadmal/travispslabandroid.git
-echo "Travis Branch"
-echo $TRAVIS_BRANCH
-echo "Git branches"
-git branch -vv
 echo "Git remotes"
 git remote -v
 echo "-------------------"
@@ -62,16 +46,18 @@ if [ "$TRAVIS_BRANCH" == "$PUBLISH_BRANCH" ]; then
 fi
 
 if [ "$TRAVIS_BRANCH" == "$DEVELOPMENT_BRANCH" ]; then
-    echo "Push to development branch detected, signing the app..."
+    echo "Push to development branch detected ..."
     # Checkout to branch
     git checkout --orphan workaround
     git add -A
     # Commit APK
-    git commit -am "Travis build is pushing APK [skip ci]"
+    git commit -am "Travis build is pushing APK to development"
+    
     # Delete the existing apk branch
     git branch -D apk
     # Move orphan branch stuff to new apk branch
     git branch -m apk
+    git config user.name
     git push padmals apk --force --quiet> /dev/null
 fi
 
