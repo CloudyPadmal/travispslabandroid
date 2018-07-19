@@ -10,13 +10,22 @@ git config --global user.name "Travis CI"
 
 #clone the repository
 git clone --quiet --branch=apk https://fossasia:$GITHUB_API_KEY@github.com/fossasia/pslab-android apk > /dev/null
-
+echo "------------------"
+echo "Before apk folder"
+ls -la
+echo "------------------"
 cd apk
-
+echo "------------------"
+echo "Inside apk folder"
+ls -la
+echo "------------------"
 \cp -r ../app/build/outputs/apk/*/**.apk .
 \cp -r ../app/build/outputs/apk/debug/output.json debug-output.json
 \cp -r ../app/build/outputs/apk/release/output.json release-output.json
 \cp -r ../README.md .
+echo "Inside apk folder after copying"
+ls -la
+echo "------------------"
 
 # Signing Apps
 echo "------------------"
