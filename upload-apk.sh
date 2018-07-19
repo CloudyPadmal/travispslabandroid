@@ -8,23 +8,27 @@ export DEVELOPMENT_BRANCH=${DEVELOPMENT_BRANCH:-bb2}
 git config --global user.email "noreply@travis.com"
 git config --global user.name "Travis CI" 
 
-#clone the repository
-git clone --quiet --branch=apk https://fossasia:$GITHUB_API_KEY@github.com/fossasia/pslab-android apk > /dev/null
-echo "------------------"
-echo "Before apk folder"
-ls -la
-echo "------------------"
+#clone the repository into a folder named apk
+git clone --quiet --branch=apk https://CloudyPadmal:$GITHUB_API_KEY@github.com/fossasia/pslab-android apk > /dev/null
+echo "------------------ What is outside current folder"
+ls -la ../
+echo "------------------ CD into APK folder where clone stuff are there from apk branch"
 cd apk
-echo "------------------"
-echo "Inside apk folder"
+echo "------------------ Inside apk folder"
 ls -la
-echo "------------------"
+cat debug-output.json
+echo "---"
+cat debug_output.json
+echo "------------------ Copying content from app build"
 \cp -r ../app/build/outputs/apk/*/**.apk .
 \cp -r ../app/build/outputs/apk/debug/output.json debug-output.json
 \cp -r ../app/build/outputs/apk/release/output.json release-output.json
 \cp -r ../README.md .
 echo "Inside apk folder after copying"
 ls -la
+cat debug-output.json
+echo "---"
+cat debug_output.json
 echo "------------------"
 
 # Signing Apps
