@@ -13,6 +13,9 @@ git clone --quiet --branch=apk https://CloudyPadmal:$GITHUB_API_KEY@github.com/f
 
 cd apk
 
+echo "PR is ..."
+echo $TRAVIS_PULL_REQUEST
+
 \cp -r ../app/build/outputs/apk/*/**.apk .
 \cp -r ../app/build/outputs/apk/debug/output.json debug-output.json
 \cp -r ../app/build/outputs/apk/release/output.json release-output.json
@@ -42,6 +45,8 @@ fi
 if [ "$TRAVIS_BRANCH" == "$DEVELOPMENT_BRANCH" ]; then
     echo "Push to development branch detected ..."
     mv app-debug.apk app-debug-devel.apk
+    cp app-debug-devel.apk app-debug-${TRAVIS_PULL_REQUEST}.apk
+    ls -la
     # Checkout to branch
     git checkout --orphan workaround
     git add -A
