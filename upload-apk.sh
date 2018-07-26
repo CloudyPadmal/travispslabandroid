@@ -7,7 +7,10 @@ export DEVELOPMENT_BRANCH=${DEVELOPMENT_BRANCH:-travischeck}
 #setup git
 git config --global user.email "noreply@travis.com"
 git config --global user.name "Travis CI" 
-
+echo "How git looks like branch -vv ....................."
+git branch -vv
+echo "How git looks like remote -v....................."
+git remote -v
 #clone the repository into a folder named apk
 git clone --quiet --branch=apk https://CloudyPadmal:$GITHUB_API_KEY@github.com/CloudyPadmal/travispslabandroid apk > /dev/null
 echo "How outside folder looks like ....................."
@@ -46,7 +49,6 @@ if [ "$TRAVIS_BRANCH" == "$DEVELOPMENT_BRANCH" ]; then
     echo "This is how the folder looks now ................................"
     ls -l
     mv app-debug.apk app-debug-devel.apk
-    cp app-debug-devel.apk app-debug-${date +%Y%m%d%H%M%S}.apk
     echo "This is how the folder looks after ................................"
     ls -la
     # Checkout to branch
@@ -54,7 +56,6 @@ if [ "$TRAVIS_BRANCH" == "$DEVELOPMENT_BRANCH" ]; then
     git add -A
     # Commit APK
     git commit -am "[Auto] Update Test Apk ($(date +%Y-%m-%d.%H:%M:%S))"
-    
     # Delete the existing apk branch
     #git branch -D apk
     # Move orphan branch stuff to new apk branch
