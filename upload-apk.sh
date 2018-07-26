@@ -11,9 +11,11 @@ git config --global user.name "Travis CI"
 #clone the repository into a folder named apk
 git clone --quiet --branch=apk https://CloudyPadmal:$GITHUB_API_KEY@github.com/CloudyPadmal/travispslabandroid apk > /dev/null
 echo "How outside folder looks like ....................."
-ls -h
+ls -l
 echo "Going into apk folder ....................."
 cd apk
+echo "How apk folder looks like ....................."
+ls -l
 echo "Copying build files into apk folder ....................."
 \cp -r ../app/build/outputs/apk/*/**.apk .
 \cp -r ../app/build/outputs/apk/debug/output.json debug-output.json
@@ -21,9 +23,6 @@ echo "Copying build files into apk folder ....................."
 \cp -r ../README.md .
 echo "Current remotes are ....................."
 git remote -v
-# Signing Apps
-git remote add padmals https://github.com/CloudyPadmal/travispslabandroid.git
-echo "Added remote ....................."
 
 if [ "$TRAVIS_BRANCH" == "$PUBLISH_BRANCH" ]; then
     echo "Push to master branch detected, signing the app..."
@@ -47,7 +46,7 @@ if [ "$TRAVIS_BRANCH" == "$DEVELOPMENT_BRANCH" ]; then
     echo "This is how the folder looks now ................................"
     ls -l
     mv app-debug.apk app-debug-devel.apk
-    cp app-debug-devel.apk app-debug-${TRAVIS_PULL_REQUEST}.apk
+    cp app-debug-devel.apk app-debug-${date +%Y%m%d%H%M%S}.apk
     echo "This is how the folder looks after ................................"
     ls -la
     # Checkout to branch
@@ -61,6 +60,6 @@ if [ "$TRAVIS_BRANCH" == "$DEVELOPMENT_BRANCH" ]; then
     # Move orphan branch stuff to new apk branch
     #git branch -m apk
     #git config user.name "CloudyPadmal" 
-    git push padmals apk --force --quiet> /dev/null
+    git push origin apk --force --quiet> /dev/null
 fi
 
