@@ -26,10 +26,10 @@ install:
   - echo yes | ${ANDROID_HOME}/tools/bin/sdkmanager "platforms;android-27"
 
 script:
-  - ./gradlew build --stacktrace
+  - 'if [ "$TRAVIS_BRANCH" != "master" ]; then ./gradlew build --stacktrace; fi'
 
 after_success:
   - bash scripts/prep-key.sh
-  - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then bash upload-apk.sh; fi'
+  - 'if [[ "$TRAVIS_PULL_REQUEST" == "false" && "$TRAVIS_BRANCH" != "master" ]]; then bash upload-apk.sh; fi'
 
 
